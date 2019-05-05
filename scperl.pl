@@ -4,7 +4,7 @@ use IO::Socket;
 #//*Matricula: 148661*//
 #//*Version: 1.0*//
 #//*Asignatura: Programacion Integrativa (UACJ)*//
-$socket = new IO::Socket::INET ( PeerAddr  => 'localhost', PeerPort  =>  3333, Proto => 'tcp', )
+$socket = new IO::Socket::INET ( PeerAddr  => 'localhost', PeerPort  =>  7890, Proto => 'tcp', )
 or die "No se pudo conectar al server.\n";
 sub ChekcsumCalc 
 {
