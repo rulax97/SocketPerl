@@ -1,14 +1,19 @@
+#!/usr/bin/perl
 use IO::Socket;
-
-
-$socket = new IO::Socket::INET ( PeerAddr  => 'localhost', PeerPort  =>  7890, Proto => 'tcp', )
-or die "Couldn't connect to Server\n";
-sub ChekcsumCalc {
+#//*Autor: Raul Ernesto Perez Barcenas*//
+#//*Matricula: 148661*//
+#//*Version: 1.0*//
+#//*Asignatura: Programacion Integrativa (UACJ)*//
+$socket = new IO::Socket::INET ( PeerAddr  => 'localhost', PeerPort  =>  3333, Proto => 'tcp', )
+or die "No se pudo conectar al server.\n";
+sub ChekcsumCalc 
+{
     $i = 0;
     $S = 0;
     $temp = 0;
     $Size = length($_[0]);
-    while ($i < $Size) {
+    while ($i < $Size) 
+    {
         $temp += ord($_[0]);
         $i++;
     }
@@ -21,66 +26,87 @@ while ($option == 1)
     $sum = 0;
     $f0 = ""; $f1 = ""; $f2 = ""; $f3 = ""; $f4 = ""; $f5 = "";
     $f = "";
-    print "\n Select your action:\n [u]=Sensor     [r]=Observer \n";
+    print "\n Selecciona tu opcion:\n [U]=Sensor UPDATE     [R]=Observador REQUEST \n";
 	$x = <STDIN>;
-    if ($x == 'u') {
+    if ($x == 'u'||$x == 'U') 
+    {
         $f0 = "U";
         $sum += ChekcsumCalc($f0);
-        print "Insert Sensor NAME:\n";
+        print "Ingrese el nombre del sensor (max. 8 caract.):\n";
         $f1 = <STDIN>;
         chop($f1);
-        while (not length($f1) == 8) {
-            if (length($f1) > 8) {
-                print "\nNAME Can't be longer than 8 Characters\n";
+        while (not length($f1) == 8) 
+	{
+            if (length($f1) > 8) 
+	    {
+                print "\nEl nombre no puede ser de mas de 8 caracteres!\n";
                 $f1 = <STDIN>;
                 chop($f1);
-            }else{
-                if (length($f1) < 8) {
+            }
+	    else
+	    {
+                if (length($f1) < 8) 
+		{
                     $f1 = $f1.' ';
                 }
             }
         }
         $sum += ChekcsumCalc($f1);
-        print "Insert Sensor Data:\n";
+        print "Ingrese los datos del sensor:\n";
         $f2 = <STDIN>;
         chop($f2);
-        while (not length($f2) == 8) {
-            if (length($f2) > 8) {
-                print "\nData can't exceed 8 characters\n";
+        while (not length($f2) == 8) 
+	{
+            if (length($f2) > 8) 
+	    {
+                print "\nLos datos no pueden sobrepasar los 8 caracteres!\n";
                 $f2 = <STDIN>;
                 chop($f2);
-            }else{
-                if (length($f2) < 8) {
+            }
+	    else
+	    {
+                if (length($f2) < 8) 
+		{
                     $f2 = $f2.' ';
                 }
             }
         }
         $sum += ChekcsumCalc($f2);
-        print "Insert Time(HHMMSS):\n";
+        print "Capture el tiempo en el siguiente formato (HHMMSS):\n";
         $f3 = <STDIN>;
         chop($f3);
-        while (not length($f3) == 6) {
-            if (length($f3) > 6) {
-                print "TIME Can't exceed 6 characters:";
+        while (not length($f3) == 6) 
+	{
+            if (length($f3) > 6) 
+	    {
+                print "El tiempo no puede exceder los 6 caracteres!";
                 $f3 = <STDIN>;
                 chop($f3);
-            }else{
-                if (length($f3) < 6) {
+            }
+	    else
+	    {
+                if (length($f3) < 6) 
+		{
                     $f3 = $f3.' ';
                 }
             }
         }
         $sum += ChekcsumCalc($f3);
-        print "Insert DATE(DDMMYYYY):\n";
+        print "Capture la fecha en el formato (DDMMYYYY):\n";
         $f4 = <STDIN>;
         chop($f4);
-        while (not length($f4) == 8) {
-            if (length($f4) > 8) {
-                print "\nDATE Can't exceed 8 characters:\n";
+        while (not length($f4) == 8) 
+	{
+            if (length($f4) > 8) 
+	    {
+                print "\nLa fecha no puede exceder los 8 caracteres:\n";
                 $f4 = <STDIN>;
                 chop($f4);
-            }else{
-                if (length($f4) < 8) {
+            }
+	    else
+	    {
+                if (length($f4) < 8) 
+		{
                     $f4 = $f4.' ';
                 }
             }
@@ -91,34 +117,47 @@ while ($option == 1)
         $socket->send($f);
         $socket->recv($recv_data,2048);
         print $recv_data;
-    } else {
-        if($x == 'r'){
-        $sum = 0;
-        $f0 = "R";
-        print "\nInsert Observer NAME:\n";
-        $f1 = <STDIN>;
-        chop($f1);
-        while (not length($f1) == 8) {
-            if (length($f1) > 8) {
-                print "\nNAME Can't exceed 8 characters\n";
+    }
+    else 
+    {
+        if($x == 'r'||$x == 'R')
+	{
+		$sum = 0;
+		$f0 = "R";
+		print "\nIngrese el nombre del observador:\n";
+		$f1 = <STDIN>;
+		chop($f1);
+        while (not length($f1) == 8) 
+	{
+            if (length($f1) > 8) 
+	    {
+                print "\nEl nombre no puede exceder los 8 caracteres!\n";
                 $f1 = <STDIN>;
                 chop($f1);
-            }else{
-                if (length($f1) < 8) {
+            }
+	    else
+	    {
+                if (length($f1) < 8) 
+		{
                     $f1 = $f1.' ';
                 }
             }
         }
-        print "Insert Sensor NAME:\n";
+        print "Ingrese el nombre del sensor (8 carac. max.):\n";
         $f2 = <STDIN>;
         chop($f2);
-        while (not length($f2) == 8) {
-            if (length($f2) > 8) {
-                print "\nSensor NAME can't exceed 8 characters\n";
+        while (not length($f2) == 8) 
+	{
+            if (length($f2) > 8) 
+	    {
+                print "\nEl nombre del sensor no puede exceder 8 caracteres!\n";
                 $f2 = <STDIN>;
                 chop($f2);
-            }else{
-                if (length($f2) < 8) {
+            }
+	    else
+	    {
+                if (length($f2) < 8) 
+		{
                     $f2 = $f2.' ';
                 }
             }
@@ -129,20 +168,20 @@ while ($option == 1)
         $socket->recv($recv_data,2048);
         $f1 = substr($recv_data,0,7); $f2 = substr($recv_data,9,8); $f3 = substr($recv_data,18,6); $f4 = substr($recv_data,25,8);
         print "\n";
-        print "Sensor Name: ";
+        print "Nombre sensor: ";
         print $f1;
         print "\n";
-        print "DATA: ";
+        print "Datos: ";
         print $f2;
         print "\n";
-        print "Tegistry Time: ";
+        print "Tiempo: ";
         print $f3;
         print "\n";
-        print "Registry Date: ";
+        print "Fecha: ";
         print $f4;
         }
     }
     print "\n";
-    print "Press [1] to continue or any key other key to exit:\n";
+    print "Presione (1) para continuar o cualquier otra tecla para salir.\n";
     $option = <STDIN>;
 }
