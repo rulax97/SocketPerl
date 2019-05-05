@@ -1,4 +1,4 @@
-!#/usr/bin/perl
+#!/usr/bin/perl
 use IO::Socket;
 #//*Autor: Raul Ernesto Perez Barcenas*//
 #//*Matricula: 148661*//
